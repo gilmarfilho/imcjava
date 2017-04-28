@@ -10,41 +10,37 @@
 </head>
 
 <%
-  String sex = request.getParameter("sex");
-  float weight = Float.parseFloat(request.getParameter("weight"));
-  float height = Float.parseFloat(request.getParameter("height"));
-  String mensagem = "";
-  String tipoMensagem = "";
+  if((request.getParameter("weight") != null && request.getParameter("height") != null) && ((!request.getParameter("weight").isEmpty() && !request.getParameter("height"))){
+    float weight = Float.parseFloat(request.getParameter("weight"));
+    float height = Float.parseFloat(request.getParameter("height"));
+    String sex = request.getParameter("sex");
+    String mensagem = "";
+    String tipoMensagem = "";
 
-  if (weight == null){
-    weight = 0;
-  }
-  if (height == null){
-    height = 0;
-  }
-  float imc = weight / (height * height);
+    float imc = weight / (height * height);
 
-  if (sex.equals("Masculino")) {
-      if (imc < 20) {
+    if (sex.equals("Masculino")) {
+        if (imc < 20) {
+          mensagem = "Abaixo do Peso!";
+          tipoMensagem = "warning";
+        } else if (imc < 26.4) {
+            mensagem = "Peso medio";
+            tipoMensagem = "success";
+        } else {
+            mensagem = "Acima do Peso!";
+            tipoMensagem = "warning";
+        }
+    } else {
+      if (imc < 19.1) {
         mensagem = "Abaixo do Peso!";
         tipoMensagem = "warning";
-      } else if (imc < 26.4) {
+      } else if (imc < 25.8) {
           mensagem = "Peso medio";
           tipoMensagem = "success";
       } else {
           mensagem = "Acima do Peso!";
           tipoMensagem = "warning";
       }
-  } else {
-    if (imc < 19.1) {
-      mensagem = "Abaixo do Peso!";
-      tipoMensagem = "warning";
-    } else if (imc < 25.8) {
-        mensagem = "Peso medio";
-        tipoMensagem = "success";
-    } else {
-        mensagem = "Acima do Peso!";
-        tipoMensagem = "warning";
     }
   }
 %>
